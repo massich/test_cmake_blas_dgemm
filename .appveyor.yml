@@ -1,0 +1,26 @@
+shallow_clone: true
+
+platform:
+  - x86
+  # - x64
+
+init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+install:
+  - ps: nuget install OpenBLAS -o C:\
+
+before_build:
+
+build_script:
+  - set PATH=C:\msys64\usr\bin;%PATH%
+  - gcc -static -o test_cblas_open test_cblas_dgemm.c -I c:\OpenBLAS.0.2.14.1\lib\native\include -L c:\OpenBLAS.0.2.14.1\lib\native\bin\win32 -lopenblas -lpthread
+
+test_script:
+
+deploy: off
+
+on_failure:
+
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
