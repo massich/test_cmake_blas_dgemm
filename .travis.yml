@@ -1,0 +1,21 @@
+sudo: false
+language:
+  - cpp
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - libopenblas-base
+      - libopenblas-dev
+
+script:
+  - cd ${TRAVIS_BUILD_DIR}
+  - gcc -static -o test_cblas_open test_cblas_dgemm.c -I /opt/OpenBLAS/include/ -L/opt/OpenBLAS/lib -lopenblas -lpthread
+
+after_success:
+  - ./test_cblas_open
+
+notifications:
+  email: false
