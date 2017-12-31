@@ -9,11 +9,28 @@ init:
 
 install:
   - ps: nuget install OpenBLAS -o C:\
+  - ps: |
+      if (![IO.File]::Exists("C:\cmake-3.10.1-win32-x86\bin\cmake.exe")) {
+        Start-FileDownload 'https://cmake.org/files/v3.10/cmake-3.10.1-win32-x86.zip'
+        7z x -y cmake-3.10.1-win32-x86.zip -oC:\
+      }
+      $env:PATH="C:\cmake-3.10.1-win32-x86\bin;$env:PATH"
+  - set PATH=C:\msys64\usr\bin;%PATH%
+  - cd c:\projects
+  - git clone https://github.com/xianyi/OpenBLAS.git
+  - cd OpenBLAS
+  - git checkout -b tags/v0.2.20
+  - ps: if (-Not (Test-Path .\build)) { mkdir build }
+  - cd build
+  - cmake -DCMAKE_INSTALL_PREFIX=c:\OpenBLAS-0.2.20\ ..
+  - cmake --build . --target install -- /v:q /p:NoWarn="C4244" /p:NoWarn="C4101" /p:NoWarn="C4018"
+
+    
 
 before_build:
 
 build_script:
-  - set PATH=C:\msys64\usr\bin;%PATH%
+  - cd c:\projects\test_cmake_blas_dgemm\
   - gcc -static -o test_cblas_open test_cblas_dgemm.c -I c:\OpenBLAS.0.2.14.1\lib\native\include -L c:\OpenBLAS.0.2.14.1\lib\native\bin\win32 -lopenblas -lpthread
 
 test_script:
