@@ -17,13 +17,12 @@ install:
       $env:PATH="C:\cmake-3.10.1-win32-x86\bin;$env:PATH"
   - set PATH=C:\msys64\usr\bin;%PATH%
   - cd c:\projects
-  - git clone https://github.com/xianyi/OpenBLAS.git
-  - cd OpenBLAS
-  - git checkout -b tags/v0.2.20
-  - ps: if (-Not (Test-Path .\build)) { mkdir build }
-  - cd build
-  - cmake -DCMAKE_INSTALL_PREFIX=c:\OpenBLAS-0.2.20\ ..
-  - cmake --build . --target install -- /v:q /p:NoWarn="C4244" /p:NoWarn="C4101" /p:NoWarn="C4018"
+  - ps: Start-FileDownload "https://downloads.sourceforge.net/project/openblas/v0.2.20/OpenBLAS%200.2.20%20version.zip" -FileName OpenBLAS.zip
+  - unzip -qq OpenBLAS.zip
+  - cd xianyi-OpenBLAS-6d2da63\
+  - make 
+  - make PREFIX=c:\openblas\ install
+
 
     
 
@@ -31,9 +30,11 @@ before_build:
 
 build_script:
   - cd c:\projects\test_cmake_blas_dgemm\
-  - gcc -static -o test_cblas_open test_cblas_dgemm.c -I c:\OpenBLAS.0.2.14.1\lib\native\include -L c:\OpenBLAS.0.2.14.1\lib\native\bin\win32 -lopenblas -lpthread
+  - gcc -static -o test_cblas_open test_cblas_dgemm.c -I c:\openblas\include -L c:\openblas\bin\win32 -lopenblas -lpthread
 
 test_script:
+  - cd c:\projects\test_cmake_blas_dgemm\
+  - .\test_cblas_open.exe
 
 deploy: off
 
