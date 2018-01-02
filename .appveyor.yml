@@ -30,7 +30,7 @@ install:
 before_build:
 
 build_script:
-  - cd c:\projects\test_cmake_blas_dgemm\
+  - cd c:\projects\test-cmake-blas-dgemm\
   - gcc -static -o test_cblas_open test_cblas_dgemm.c -I c:\openblas\include -L c:\openblas\bin\win32 -lopenblas -lpthread
 
 test_script:
