@@ -20,7 +20,7 @@ install:
   - ps: Start-FileDownload "https://downloads.sourceforge.net/project/openblas/v0.2.20/OpenBLAS%200.2.20%20version.zip" -FileName OpenBLAS.zip
   - unzip -qq OpenBLAS.zip
   - cd xianyi-OpenBLAS-6d2da63\
-  - make 
+  - make -s 
   - bash make PREFIX=c:\openblas\ install
 
 
