@@ -22,6 +22,7 @@ install:
   - cd xianyi-OpenBLAS-6d2da63\
   - PATH
   - which make
+  - bash -lc "pwd"
   - bash -lc "which make"
   - bash -lc "make -s "
   - bash -lc "make PREFIX=/c/openblas/ install"
