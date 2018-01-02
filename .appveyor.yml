@@ -21,7 +21,7 @@ install:
   - unzip -qq OpenBLAS.zip
   - cd xianyi-OpenBLAS-6d2da63\
   - make 
-  - make PREFIX=c:\openblas\ install
+  - bash make PREFIX=c:\openblas\ install
 
 
     
