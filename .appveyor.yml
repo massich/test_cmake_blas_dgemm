@@ -16,15 +16,15 @@ install:
   #     }
   #     $env:PATH="C:\cmake-3.10.1-win32-x86\bin;$env:PATH"
   - set PATH=C:\msys64\usr\bin;%PATH%
-  # - cd c:\projects
-  # - ps: Start-FileDownload "https://downloads.sourceforge.net/project/openblas/v0.2.20/OpenBLAS%200.2.20%20version.zip" -FileName OpenBLAS.zip
-  # - unzip -qq OpenBLAS.zip
-  # - cd xianyi-OpenBLAS-6d2da63\
+  - cd c:\projects
+  - ps: Start-FileDownload "https://downloads.sourceforge.net/project/openblas/v0.2.20/OpenBLAS%200.2.20%20version.zip" -FileName OpenBLAS.zip
+  - unzip -qq OpenBLAS.zip
+  - cd xianyi-OpenBLAS-6d2da63\
   - PATH
   - which make
   - bash -lc "which make"
-  # - make -s 
-  # - bash -lc "make PREFIX=/c/openblas/ install"
+  - bash -lc "make -s "
+  - bash -lc "make PREFIX=/c/openblas/ install"
   
 
 
