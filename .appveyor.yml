@@ -24,6 +24,7 @@ install:
   - which make
   - bash -lc "pwd"
   - bash -lc "ls /"
+  - bash -lc "ls /c/projects"
   - bash -lc "which make"
   - bash -lc "make -s "
   - bash -lc "make PREFIX=/c/openblas/ install"
